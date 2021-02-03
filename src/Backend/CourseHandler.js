@@ -22,7 +22,7 @@ const getUniqueCourseGroupsByProgram = async (programName, year) => {
 
 const getCourseGroupsByProgram = async (programName, year) => {
 	const courseGroups = await CourseService.getAllRequiredCourseGroups();
-	const courseGroupsByProgram = courseGroups.filter(courseGroup => courseGroup.programName == programName && courseGroup.year == year)[0];
+	const courseGroupsByProgram = courseGroups.filter(courseGroup => courseGroup.programName == programName && courseGroup.year.includes(year))[0];
 	if(!courseGroupsByProgram){
 		throw new Error(`couldn't find data for ${programName} for academic year ${year}`);
 	}else{

@@ -5,4 +5,5 @@ module.exports = {
 	CoursePrereq: require('./CoursePrereq.js'),
 	Courses: require('./Courses.js'),
 	AcademicYears: require('./AcademicYears.js'),
+	Subjects: require('./Subjects.js'),
 };

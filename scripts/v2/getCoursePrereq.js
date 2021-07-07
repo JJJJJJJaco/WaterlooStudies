@@ -1,5 +1,5 @@
-const { UW_API_KEY, UW_API_PATH } = require('../src/Backend/Enums');
-const { Courses } = require('../src/Backend/Database');
+const { UW_API_V2_KEY, UW_API_V2_PATH } = require('../../src/Backend/Enums');
+const { Courses } = require('../../src/Backend/Database');
 const axios = require('axios');
 const fs = require('fs');
 
@@ -9,7 +9,7 @@ const fs = require('fs');
 	let rtn = {};
 	const header = {
 		params: { 
-			key: UW_API_KEY,
+			key: UW_API_V2_KEY,
 		}
 	};
 	for(const obj in Courses){
@@ -18,7 +18,7 @@ const fs = require('fs');
 		const courseKey = category + ' ' + number;
 		console.log('processing..', courseKey);
 		try {
-			const response = await axios.get(`${UW_API_PATH}/courses/${category}/${number}.json`, header);
+			const response = await axios.get(`${UW_API_V2_PATH}/courses/${category}/${number}.json`, header);
 			if(response.data.data){
 				const { prerequisites } = response.data.data;
 				let children = [];

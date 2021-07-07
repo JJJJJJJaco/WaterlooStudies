@@ -1,4 +1,5 @@
 <template>
+
 	<div class="container">
 		<div>
 			<p>Select your faculty:</p>
@@ -14,11 +15,19 @@
 					Enter what courses you have taken and which category they fall in
 				</p>
 				<b-input-group size="sm">
-					<b-form-input v-model="userCourse" placeholder="course name"></b-form-input> 
+					<b-form-input v-model="userCourse" placeholder="course name" list="availCoursesList"></b-form-input> 
+					<datalist id="availCoursesList">
+						<option v-for="(data, index) in availCourses" :key="index">{{ data.code }} - {{ data.title }}</option>
+					</datalist>
 					<span style="margin: 0 1em">falls in</span> 
 					<b-form-select v-model="userCourseGroup" :options="courseGroups"></b-form-select>
 				</b-input-group>
-				<b-button variant="success" @click="addCourse">Add</b-button>
+				<div>
+					<label style="font-size: 10px; float: center;">
+						Please visit <a href="https://ugradcalendar.uwaterloo.ca/" target="_blank">https://ugradcalendar.uwaterloo.ca/</a> for more info on course categories					
+					</label>
+				</div>
+				<b-button style="float right;" variant="success" @click="addCourse">Add</b-button> 
 			</div>
 		</div>
 		<div v-if="userCourses.length > 0">
@@ -54,8 +63,8 @@
 import PieChart from '@/components/PieChart.vue';
 const { FacultyHandler, ProgramHandler, CourseHandler } = require('@/Backend');
 const { AcademicYears } = require('@/Backend/Database');
+const { CacheService } = require('@/Backend/Service');
 const Enums = require('@/Backend/Enums');
-
 export default {
 	name: 'CreditTrackerPage',
 	components: {
@@ -65,12 +74,12 @@ export default {
 		return {
 			userFaculty: '',
 			userYear: '',
-			selected: '',
 			userProgram: '',
 			faculties: [],
 			programs: [],
 			courseGroups: [],
 			academicYears: {},
+			availCourses: [],
 			userCourses: [],
 			userCourse: '',
 			userCourseGroup: '',
@@ -80,13 +89,18 @@ export default {
 			pieChartTitle: '% of electives taken',
 			showResult: false,
 			allowCourseSelection: false,
-			allowProgramSelection: false
+			allowProgramSelection: false,
+			raw: 'Greetings from https://ugradcalendar.uwaterloo.ca/'
 		};
 	},
 	methods: {
 		addCourse: function() {
 			const newCourse = this.userCourse;
 			const newCourseGroup = this.userCourseGroup;
+			if(newCourse == '' || newCourseGroup == ''){
+				alert('course or group cannot be empty');
+				return;
+			} 
 			for (const userCourse of this.userCourses) {
 				if (userCourse.name == newCourse && userCourse.group == newCourseGroup) {
 					alert(`the pair ${newCourse} in ${newCourseGroup} has already been added`);
@@ -100,6 +114,7 @@ export default {
 			this.userCourse = '';
 			this.userCourseGroup = '';
 			this.calculate();
+			CacheService.set('userCourses', JSON.stringify(this.userCourses));
 		},
 		removeCourse: function(index) {
 			this.userCourses.splice(index, 1);
@@ -138,7 +153,6 @@ export default {
 					}
 				}
 			});
-
 			// reset the display
 			this.coursesNeedToBeFulfilled = [];
 			for (const [key, value] of Object.entries(diffCourseGroups)) {
@@ -160,6 +174,7 @@ export default {
 				}
 			}
 			this.showResult = true;
+			CacheService.set('showResult', true);
 			this.generatePieGraph(requiredCourseGroups);
 		},
 		generatePieGraph: function(requiredCourseGroups) {
@@ -185,6 +200,25 @@ export default {
 				alert(e.message);
 				this.allowCourseSelection = false;
 			}
+		},
+		initCache: function() {
+			// init faculty
+			const userFaculty = CacheService.get('userFaculty');
+			if(userFaculty) this.userFaculty = userFaculty;
+			// init program
+			const userProgram = CacheService.get('userProgram');
+			if(userProgram) this.userProgram = userProgram;
+			// init year
+			const userYear = CacheService.get('userYear');
+			if(userYear) this.userYear = userYear;
+			const courses = CacheService.get('userCourses');
+			if(courses) this.userCourses = JSON.parse(courses);
+			const showResult = CacheService.get('showResult');
+			if(showResult) this.calculate();
+			const userCourse = CacheService.get('userCourse');
+			if(userCourse) this.userCourse = userCourse;
+			const userCourseGroup = CacheService.get('userCourseGroup');
+			if(userCourseGroup) this.userCourseGroup = userCourseGroup;
 		}
 	},
 	watch: {
@@ -198,12 +232,21 @@ export default {
 				};
 			});
 			this.allowProgramSelection = true;
+			CacheService.set('userFaculty', this.userFaculty);
 		},
-		userYear: async function() {
+		userYear: function() {
 			this.getCourseGroups();
+			CacheService.set('userYear', this.userYear);
 		},
-		userProgram: async function() {
+		userProgram: function() {
 			this.getCourseGroups();
+			CacheService.set('userProgram', this.userProgram);
+		},
+		userCourse: function() {
+			CacheService.set('userCourse', this.userCourse);
+		},
+		userCourseGroup: function() {
+			CacheService.set('userCourseGroup', this.userCourseGroup);
 		}
 	},
 	async created() {
@@ -214,6 +257,8 @@ export default {
 				text: y.name
 			};
 		});
+		this.availCourses = await CourseHandler.getAllCourses();
+		this.initCache();
 	}
 };
 </script>

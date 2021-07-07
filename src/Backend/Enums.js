@@ -53,14 +53,19 @@ const AcademicYearsEnum = {
 	2021: '2020-2021'
 };
 
-const UW_API_PATH = 'https://api.uwaterloo.ca/v2';
-const UW_API_KEY = '80b0fad48576cfe67a4de474ebeea851';
+const UW_API_V2_PATH = 'https://api.uwaterloo.ca/v2';
+const UW_API_V2_KEY = '80b0fad48576cfe67a4de474ebeea851';
+
+const UW_API_V3_PATH = 'https://openapi.data.uwaterloo.ca/v3';
+const UW_API_V3_KEY = 'A8F227BCEE1249A0BCDAEE31184186E4';
 
 module.exports = {
 	ProgramEnum,
 	FacultyEnum,
 	CourseGroupEnum,
-	UW_API_PATH,
-	UW_API_KEY,
+	UW_API_V2_PATH,
+	UW_API_V2_KEY,
+	UW_API_V3_PATH,
+	UW_API_V3_KEY,
 	AcademicYearsEnum
 };

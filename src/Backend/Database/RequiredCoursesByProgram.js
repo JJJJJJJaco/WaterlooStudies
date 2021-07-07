@@ -3,7 +3,7 @@ const Enums = require('../Enums');
 module.exports = [
 	{
 		programName: Enums.ProgramEnum.AE,
-		year: Enums.AcademicYearsEnum[1819],
+		year: [Enums.AcademicYearsEnum[1819]],
 		courseGroups: [
 			{
 				name: Enums.CourseGroupEnum.CSE_LIST_A,
@@ -29,7 +29,7 @@ module.exports = [
 	},
 	{
 		programName: Enums.ProgramEnum.AE,
-		year: Enums.AcademicYearsEnum[1920],
+		year: [Enums.AcademicYearsEnum[1920]],
 		courseGroups: [
 			{
 				name: Enums.CourseGroupEnum.CSE_LIST_A,
@@ -122,7 +122,7 @@ module.exports = [
 	},
 	{
 		programName: Enums.ProgramEnum.CIVE,
-		year: Enums.AcademicYearsEnum[1617],
+		year: [Enums.AcademicYearsEnum[1617]],
 		courseGroups: [
 			{
 				name: Enums.CourseGroupEnum.TECH_LIST_A,
@@ -218,7 +218,7 @@ module.exports = [
 	},
 	{
 		programName: Enums.ProgramEnum.ECE,
-		year: Enums.AcademicYearsEnum[1617],
+		year: [Enums.AcademicYearsEnum[1617]],
 		courseGroups: [
 			{
 				name: Enums.CourseGroupEnum.CSE_LIST_C,
@@ -257,7 +257,7 @@ module.exports = [
 	},
 	{
 		programName: Enums.ProgramEnum.ECE,
-		year: Enums.AcademicYearsEnum[1718],
+		year: [Enums.AcademicYearsEnum[1718]],
 		courseGroups: [
 			{
 				name: Enums.CourseGroupEnum.CSE_LIST_C,
@@ -322,7 +322,7 @@ module.exports = [
 	},
 	{
 		programName: Enums.ProgramEnum.ENVE,
-		year: Enums.AcademicYearsEnum[1617],
+		year: [Enums.AcademicYearsEnum[1617]],
 		courseGroups: [
 			{
 				name: Enums.CourseGroupEnum.CSE_LIST_C,
@@ -353,7 +353,7 @@ module.exports = [
 	},
 	{
 		programName: Enums.ProgramEnum.ENVE,
-		year: Enums.AcademicYearsEnum[1718],
+		year: [Enums.AcademicYearsEnum[1718]],
 		courseGroups: [
 			{
 				name: Enums.CourseGroupEnum.TECH_LIST_A,
@@ -387,7 +387,7 @@ module.exports = [
 	},
 	{
 		programName: Enums.ProgramEnum.ENVE,
-		year: Enums.AcademicYearsEnum[1819],
+		year: [Enums.AcademicYearsEnum[1819]],
 		courseGroups: [
 			{
 				name: Enums.CourseGroupEnum.TECH_LIST_A,
@@ -413,7 +413,7 @@ module.exports = [
 	},
 	{
 		programName: Enums.ProgramEnum.ENVE,
-		year: Enums.AcademicYearsEnum[1920],
+		year: [Enums.AcademicYearsEnum[1920]],
 		courseGroups: [
 			{
 				name: Enums.CourseGroupEnum.TECH_LIST_A,

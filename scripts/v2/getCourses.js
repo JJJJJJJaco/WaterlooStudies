@@ -1,4 +1,4 @@
-const { UW_API_KEY, UW_API_PATH } = require('../src/Backend/Enums');
+const { UW_API_V2_KEY, UW_API_V2_PATH } = require('../../src/Backend/Enums');
 const axios = require('axios');
 const fs = require('fs');
 
@@ -6,12 +6,12 @@ const fs = require('fs');
 	let rtn = {};
 	const header = {
 		params: { 
-			key: UW_API_KEY,
+			key: UW_API_V2_KEY,
 		}
 	};
 	let recordsProcessed = 0;
 	try {
-		const coursesResponse = await axios.get(`${UW_API_PATH}/courses.json`, header);
+		const coursesResponse = await axios.get(`${UW_API_V2_PATH}/courses.json`, header);
 		if(coursesResponse.data.data){
 			const courses = coursesResponse.data.data;
 			const totalRecords = courses.length;
@@ -21,7 +21,7 @@ const fs = require('fs');
 				let description = '';
 				console.log(`processing ${courseKey}`);
 				// get course details
-				const courseResponse = await axios.get(`${UW_API_PATH}/courses/${subject}/${catalog_number}.json`, header);
+				const courseResponse = await axios.get(`${UW_API_V2_PATH}/courses/${subject}/${catalog_number}.json`, header);
 				if(courseResponse.data.data){
 					description = courseResponse.data.data.description;
 				}else{

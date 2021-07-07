@@ -42,9 +42,35 @@ const getCourseTitleByCourseCode = async courseCode => {
 	}
 };
 
+const getAllCourses = async() => {
+	const rawCourses = await CourseService.getAllCourses();
+	let rtn = [];
+	for(const code in rawCourses){
+		rtn.push({
+			code: code,
+			title: rawCourses[code].title
+		});
+	}
+	return rtn;
+};
+
+const getCoursesBySubjectCode = async subjectCode => {
+	try {
+		const courses = await CourseService.getCoursesBySubjectCode(subjectCode);
+		// sort by course number in ascending order
+		courses.sort((a,b) => parseInt(a.courseNumber) - parseInt(b.courseNumber));
+		return courses;
+	} catch (e) {
+		console.error(e);
+		return null;
+	}
+};
+
 module.exports = {
 	getUniqueCourseGroupsByProgram,
 	getCourseGroupsByProgram,
 	getPrereqByCourseCode,
-	getCourseTitleByCourseCode
+	getCourseTitleByCourseCode,
+	getAllCourses,
+	getCoursesBySubjectCode
 };

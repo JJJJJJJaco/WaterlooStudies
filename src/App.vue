@@ -13,14 +13,19 @@
 						<font-awesome-icon icon="calculator" /><span class="sidebar-item-text">Credit Tracker</span>
 					</p>
 				</router-link>
-				<router-link to="/course_advisor" class="sidebar-item">
+				<router-link to="/course_catalog" class="sidebar-item">
 					<p>
-						<font-awesome-icon icon="lightbulb" /><span class="sidebar-item-text">Course Advisor</span>
+						<font-awesome-icon icon="lightbulb" /><span class="sidebar-item-text">Course Catalog</span>
 					</p>
 				</router-link>
 				<router-link to="/course_prereq" class="sidebar-item">
 					<p>
 						<font-awesome-icon icon="book-reader" /><span class="sidebar-item-text">Course Prerequisites</span>
+					</p>
+				</router-link>
+				<router-link to="/favorite_course" class="sidebar-item">
+					<p>
+						<font-awesome-icon icon="heart" /><span class="sidebar-item-text">Favorite Course</span>
 					</p>
 				</router-link>
 			</div>

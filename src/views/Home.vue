@@ -13,16 +13,20 @@
 								<Menu :route="'/credit_tracker'" :faIcon="'calculator'" :toolTip="'Credit Tracker'"/>
 							</div>
 							<div class="col">
-								<Menu :route="'/course_advisor'" :faIcon="'lightbulb'" :toolTip="'Course Advisor'" />
+								<Menu :route="'/course_catalog'" :faIcon="'lightbulb'" :toolTip="'Course Catalog'" />
 							</div>
 							<div class="col">
 								<Menu :route="'/course_prereq'" :faIcon="'book-reader'" :toolTip="'Course Prerequisites'"/>
 							</div>
+							<div class="col">
+								<Menu :route="'/favorite_course'" :faIcon="'heart'" :toolTip="'Favorite Course'"/>
+							</div>
 						</div>
 						<div style="text-align: left">
 							<p>Avoid the hassle of the Excel credit tracking sheet <font-awesome-icon icon="check-circle" style="color: green" /> </p>
-							<p>Get course suggestions based on your interests <font-awesome-icon icon="check-circle" style="color: green" /></p>
+							<p>View all available courses for a specific term <font-awesome-icon icon="check-circle" style="color: green" /></p>
 							<p>Get an overview of course prerequisites <font-awesome-icon icon="check-circle" style="color: green" /> </p>
+							<p>Compare and contrast similar courses <font-awesome-icon icon="check-circle" style="color: green" /> </p>
 						</div>
 					</div>
 				</div>

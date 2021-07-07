@@ -1,6 +1,6 @@
 <template>
   <div class="treant">
-    <div :id="`tree-${id}`" class="tree-container"></div>
+    <div :id="`tree-${id}`" class="tree-container" style="overflow-x: auto;overflow-y: auto;"></div>
   </div>
 </template>
 <script>
@@ -9,7 +9,7 @@ import 'treantjs/Treant.css';
 import Raphael from 'treantjs/vendor/raphael';
 window.Raphael = Raphael;
 export default {
-	props: ['id', 'tree', 'highlighted', 'config', 'redrawKey'],
+	props: ['id', 'tree', 'highlighted', 'config', 'redrawKey', 'userSelectedCourses'],
 	data() {
 		return {
 			treant: null,
@@ -26,9 +26,13 @@ export default {
 		},
 		onTreeLoaded() {
 			const nodes = this.$el.querySelectorAll('.node');
+			const userSelectedCourseNames = this.userSelectedCourses.map(c => c.name.split('-')[0].trim());
 			nodes.forEach(node => {
 				node.addEventListener('mouseenter', this.onNodeEnter);
 				node.addEventListener('mouseleave', this.onNodeLeave);
+				if(userSelectedCourseNames.includes(node.innerText)) {
+					this.$emit('onDisplayUserSelectedCourse', node);
+				}
 			});
 		},
 		onResize() {
@@ -122,5 +126,12 @@ export default {
 }
 .Treant .collapsed .collapse-switch { 
     background-color: unset;
+}
+.userSelectedCourse { 
+	background-color: red;
+}
+.Treant p {
+	margin-bottom: 0;
+	margin-top: 0;
 }
 </style>

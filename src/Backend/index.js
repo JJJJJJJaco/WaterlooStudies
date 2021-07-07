@@ -1,5 +1,6 @@
 module.exports = {
 	FacultyHandler: require('./FacultyHandler'),
 	ProgramHandler: require('./ProgramHandler'),
-	CourseHandler: require('./CourseHandler')
+	CourseHandler: require('./CourseHandler'),
+	TermHandler: require('./TermHandler'),
 };
